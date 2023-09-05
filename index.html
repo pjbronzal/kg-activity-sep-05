@@ -15,12 +15,47 @@
                 <img src="user-login.png" alt="Logo">
             </div>
             <h2>Login</h2>
-            <input type="text" class="form-input" placeholder="Username">
-            <input type="password" class="form-input" placeholder="Password">
-            <button class="login-button">Login</button>
+            <form id="loginForm">
+                <input type="email" class="form-input" id="email" placeholder="Email address">
+                <input type="password" class="form-input" id="password" placeholder="Password">
+                <button type="button" class="login-button" onclick="validateForm()">Login</button>
+            </form>
             <p class="forgot-password"><a href="#">Forgot password?</a></p>
         </div>
     </div>
 </body>
+
+<script>
+    function validateForm() {
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+
+        if (emailInput.value === '' || passwordInput.value === '') {
+            alert('This field cannot be empty!');
+            if (emailInput.value === '') {
+                emailInput.classList.add("error");
+                console.log(emailInput);
+            }
+            if (passwordInput.value === '') {
+                passwordInput.classList.add("error");
+            }
+            return;
+        }
+
+        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if (!emailPattern.test(emailInput.value)) {
+            alert('Invalid email address! Please try again.');
+            emailInput.classList.add("error");
+            return;
+        }
+
+        if (emailInput.value === 'user@email.com' && passwordInput.value === '123') {
+            alert('Welcome!');
+            window.location.href = 'home.html';
+        } else {
+            alert('Invalid username or password! Please try again!');
+        }
+    }
+</script>
 
 </html>
